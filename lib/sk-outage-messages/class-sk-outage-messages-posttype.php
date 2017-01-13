@@ -45,7 +45,7 @@ class SK_Outage_Messages_Posttype {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'supports'           => array( 'title' )
+			'supports'           => array( 'title', 'editor' )
 		);
 
 	}
