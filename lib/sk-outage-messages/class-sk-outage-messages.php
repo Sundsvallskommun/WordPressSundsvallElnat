@@ -10,6 +10,7 @@
 require_once locate_template( 'lib/sk-outage-messages/class-sk-outage-messages-posttype.php' );
 require_once locate_template( 'lib/sk-outage-messages/class-sk-outage-messages-updater.php' );
 require_once locate_template( 'lib/sk-outage-messages/class-sk-outage-messages-cron.php' );
+require_once locate_template( 'lib/sk-outage-messages/class-sk-outage-messages-shortcode.php' );
 
 class SK_Outage_Messages {
 
@@ -29,6 +30,9 @@ class SK_Outage_Messages {
 		// Setup cron job
 		new SK_Outage_Messages_Cron();
 
+		// Create shortcode
+		new SK_Outage_Messages_Shortcode();
+
 	}
 
 
@@ -38,16 +42,32 @@ class SK_Outage_Messages {
 	 *
 	 * @return array    outage messages posts
 	 */
-	public static function messages() {
+	public static function messages( $with_meta = false ) {
 
-		return get_posts(
+		$messages = get_posts(
 			array(
 				'posts_per_page' => - 1,
 				'post_type'      => 'outage_message'
 			)
 		);
 
-	}
 
+		if ( $with_meta ) {
+
+			if ( is_array( $messages ) && count( $messages ) > 0 ) {
+
+				foreach ( $messages as $key => $message ) {
+
+					$messages[$key]->meta = get_post_custom( $message->ID );
+
+				}
+
+			}
+
+		}
+
+		return $messages;
+
+	}
 
 }

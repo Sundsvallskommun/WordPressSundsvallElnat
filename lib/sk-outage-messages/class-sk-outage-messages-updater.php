@@ -195,6 +195,7 @@ class SK_Outage_Messages_Updater {
 		} else {
 
 			update_post_meta( $post_id, 'external_id', $message['id'] );
+			update_post_meta( $post_id, 'area', $message['area'] );
 			update_post_meta( $post_id, 'starttime', self::transform_date( $message['starttime'] ) );
 			update_post_meta( $post_id, 'plannedstarttime', self::transform_date( $message['plannedstarttime'] ) );
 			update_post_meta( $post_id, 'statusinfo', $message['statusinfo'] );
